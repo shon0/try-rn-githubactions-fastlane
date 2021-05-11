@@ -28,6 +28,7 @@ jobs:
           echo ${{ env.NEW_VERSION }}
   bump-version-android:
     name: Bump version Android
+    needs: bump-version-ios
     runs-on: ubuntu-latest
     if: github.event.inputs.bump_type == 'minor' || github.event.inputs.bump_type == 'major'
     steps:
