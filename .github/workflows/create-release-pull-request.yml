@@ -1,0 +1,37 @@
+name: Create release pull request
+on:
+  workflow_dispatch:
+    branches:
+      - master
+    inputs:
+      bump_type:
+        description: 'Bump Type (minor or major)'
+        required: true
+        default: 'minor'
+jobs:
+  bump-version-ios:
+    name: Bump version iOS
+    runs-on: macos-latest
+    if: github.event.inputs.logLevel == 'minor' || github.event.inputs.logLevel == 'major'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+        with:
+          ref: develop
+      - name: Increment version
+        env:
+          XCODE_VERSION: '12.4'
+        run: |
+          xcodes select $XCODE_VERSION
+          bundle install
+          bundle exec fastlane ios bump_version bump_type:${{ github.event.inputs.bump_type }}
+          echo ${{ env.NEW_VERSION }}
+  bump-version-android:
+    name: Bump version Android
+    runs-on: ubuntu-latest
+    if: github.event.inputs.logLevel == 'minor' || github.event.inputs.logLevel == 'major'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+        with:
+          ref: develop
