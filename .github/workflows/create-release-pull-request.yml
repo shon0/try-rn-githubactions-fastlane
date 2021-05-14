@@ -25,7 +25,8 @@ jobs:
         run: |
           bundle install
           bundle exec fastlane ios bump_version bump_type:${{ github.event.inputs.bump_type }}
-          echo ${{ env.NEW_VERSION }}
+      - name: confirm new version
+        run: echo ${{ env.NEW_VERSION }}
   bump-version-android:
     name: Bump version Android
     needs: bump-version-ios
