@@ -22,7 +22,7 @@ jobs:
         env:
           XCODE_VERSION: '12.4'
         run: |
-          xcodes select $XCODE_VERSION
+          xcode select $XCODE_VERSION
           bundle install
           bundle exec fastlane ios bump_version bump_type:${{ github.event.inputs.bump_type }}
           echo ${{ env.NEW_VERSION }}
