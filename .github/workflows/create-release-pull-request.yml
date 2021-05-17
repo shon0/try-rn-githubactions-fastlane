@@ -9,7 +9,6 @@ on:
 jobs:
   bump-version-ios:
     name: Bump version iOS
-    needs: [check-params]
     runs-on: macos-latest
     if:  github.event.inputs.bump_type == 'minor' || github.event.inputs.bump_type == 'major' 
     steps:
