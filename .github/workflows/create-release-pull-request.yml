@@ -10,7 +10,9 @@ jobs:
   bump-version-ios:
     name: Bump version iOS
     runs-on: macos-latest
-    if: github.event.inputs.bump_type == 'minor' || github.event.inputs.bump_type == 'major' 
+    if: github.event.inputs.bump_type == 'minor' || github.event.inputs.bump_type == 'major'
+    outputs:
+      new-version: ${{ steps.bump_version.outputs.new_version }}
     steps:
       - name: Checkout code
         uses: actions/checkout@master
@@ -19,10 +21,12 @@ jobs:
       - uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: '12.4'
-      - name: Increment version
+      - name: Bump version
+        id: bump_version
         run: |
           bundle install
           bundle exec fastlane ios bump_version bump_type:${{ github.event.inputs.bump_type }}
+          echo ::set-output name=new_version::${{ env.NEW_VERSION }}
   bump-version-android:
     name: Bump version Android
     needs: [bump-version-ios]
@@ -35,7 +39,7 @@ jobs:
       - uses: actions/setup-ruby@v1
         with:
           ruby-version: "2.x"
-      - name: Increment version
+      - name: Bump version
         run: |
           bundle install
-          bundle exec fastlane android bump_version bump_type:${{ env.NEW_VERSION }}
+          bundle exec fastlane android bump_version bump_type:${{ needs.bump-version-ios.outputs.new-version }}
