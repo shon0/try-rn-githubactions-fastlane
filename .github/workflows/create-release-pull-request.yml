@@ -10,7 +10,7 @@ jobs:
   check-params:
     name: Check status
     if: github.ref == 'refs/heads/master' || github.event.inputs.bump_type != 'minor' || github.event.inputs.bump_type != 'major'
-    run: exit 1
+    run: exit 0
   bump-version-ios:
     name: Bump version iOS
     runs-on: macos-latest
