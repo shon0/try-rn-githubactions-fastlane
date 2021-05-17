@@ -114,7 +114,6 @@
 				59F708D780C5B873132F7999 /* Pods-TryRNGithubactionsFastlane-TryRNGithubactionsFastlaneTests.debug.xcconfig */,
 				B27A6A5638AD7795F8FFBBA6 /* Pods-TryRNGithubactionsFastlane-TryRNGithubactionsFastlaneTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -491,6 +490,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -516,6 +516,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
