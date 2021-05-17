@@ -32,7 +32,7 @@ jobs:
           bundle exec fastlane ios bump_version bump_type:${{ github.event.inputs.bump_type }}
   bump-version-android:
     name: Bump version Android
-    needs: [check-params, bump-version-ios]
+    needs: [bump-version-ios]
     runs-on: ubuntu-latest
     if: env.NEW_VERSION != null
     steps:
