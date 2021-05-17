@@ -8,3 +8,14 @@ platform :ios do
     sh("echo NEW_VERSION=#{new_version} >> $GITHUB_ENV")
   end
 end
+
+platform :iandroid do
+  desc "バージョンの更新"
+  lane :bump_version do |options|
+    new_version = increment_version_name(
+      bump_type: options[:bump_type],
+      xcodeproj: "./ios/TryRNGithubactionsFastlane.xcodeproj"
+    )
+    sh("echo NEW_VERSION=#{new_version} >> $GITHUB_ENV")
+  end
+end
