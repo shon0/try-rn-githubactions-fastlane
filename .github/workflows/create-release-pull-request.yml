@@ -7,6 +7,16 @@ on:
         required: true
         default: 'minor'
 jobs:
+  checkout-release-branch:
+    name: developブランチから仮のリリースブランチ作成
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+        with:
+          ref: develop
+      - name: Checkout release/new branch
+        run: git branch release/new
   bump-version-ios:
     name: Bump version iOS
     runs-on: macos-latest
@@ -17,7 +27,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@master
         with:
-          ref: develop
+          ref: release/new
       - uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: '12.4'
@@ -37,7 +47,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@master
         with:
-          ref: develop
+          ref: release/new
       - uses: actions/setup-ruby@v1
         with:
           ruby-version: "2.x"
@@ -56,6 +66,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@master
         with:
-          ref: develop
-      - name: check
+          ref: release/new
+      - name: Run git status
         run: git status

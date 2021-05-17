@@ -5,6 +5,13 @@ platform :ios do
       bump_type: options[:bump_type],
       xcodeproj: "./ios/TryRNGithubactionsFastlane.xcodeproj"
     )
+
+    commit_version_bump(
+      message: "Bump bundle version to #{Actions.lane_context[SharedValues::VERSION_NUMBER]}",
+      xcodeproj: "./ios/smaluna.xcodeproj",
+      ignore: /smaluna-tvOSTests/,
+    )
+
     sh("echo IOS_NEW_VERSION=#{new_version} >> $GITHUB_ENV")
   end
 end
@@ -16,6 +23,12 @@ platform :android do
       bump_type: options[:bump_type],
       gradle_file_path: "./android/app/build.gradle",
     )
+
+    commit_android_version_bump(
+      message: "Bump bundle version to #{Actions.lane_context[SharedValues::VERSION_NAME]}",
+      gradle_file_folder: "android/app",
+    )
+
     sh("echo ANDROID_NEW_VERSION=#{new_version} >> $GITHUB_ENV")
   end
 end
