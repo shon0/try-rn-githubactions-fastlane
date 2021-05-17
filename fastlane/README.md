@@ -24,10 +24,10 @@ fastlane ios bump_version
 
 ----
 
-## iandroid
-### iandroid bump_version
+## Android
+### android bump_version
 ```
-fastlane iandroid bump_version
+fastlane android bump_version
 ```
 バージョンの更新
 
