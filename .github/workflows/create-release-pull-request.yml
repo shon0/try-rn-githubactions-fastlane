@@ -35,8 +35,8 @@ jobs:
         uses: actions/checkout@master
         with:
           ref: develop
-       - uses: actions/setup-ruby@v1
-         with:
+      - uses: actions/setup-ruby@v1
+        with:
           ruby-version: "2.x"
       - name: Increment version
         run: |
