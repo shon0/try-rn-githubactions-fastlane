@@ -9,12 +9,14 @@ on:
 jobs:
   check-params:
     name: Check status
+    runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master' || github.event.inputs.bump_type != 'minor' || github.event.inputs.bump_type != 'major'
     steps:
       - name: failure
         run: exit 1
   bump-version-ios:
     name: Bump version iOS
+    needs: [check-params]
     runs-on: macos-latest
     steps:
       - name: Checkout code
@@ -30,7 +32,7 @@ jobs:
           bundle exec fastlane ios bump_version bump_type:${{ github.event.inputs.bump_type }}
   bump-version-android:
     name: Bump version Android
-    needs: bump-version-ios
+    needs: [check-params, bump-version-ios]
     runs-on: ubuntu-latest
     if: env.NEW_VERSION != null
     steps:
