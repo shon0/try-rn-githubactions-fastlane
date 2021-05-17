@@ -34,7 +34,6 @@ jobs:
     name: Bump version Android
     needs: [bump-version-ios]
     runs-on: ubuntu-latest
-    if: env.NEW_VERSION != null
     steps:
       - name: Checkout code
         uses: actions/checkout@master
