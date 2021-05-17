@@ -53,5 +53,9 @@ jobs:
     runs-on: ubuntu-latest
     if: needs.bump-version-ios.outputs.new-version == needs.bump-version-android.outputs.new-version
     steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+        with:
+          ref: develop
       - name: check
         run: git status
