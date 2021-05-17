@@ -10,7 +10,7 @@ jobs:
   bump-version-ios:
     name: Bump version iOS
     runs-on: macos-latest
-    if: github.ref != 'refs/heads/develop' || github.event.inputs.bump_type == 'minor' || github.event.inputs.bump_type == 'major' 
+    if: github.event.inputs.bump_type == 'minor' || github.event.inputs.bump_type == 'major' 
     steps:
       - name: Checkout code
         uses: actions/checkout@master
