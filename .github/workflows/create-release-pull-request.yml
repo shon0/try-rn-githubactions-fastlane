@@ -2,17 +2,20 @@ name: Create release pull request
 on:
   workflow_dispatch:
     branches:
-      - master
+      - develop
     inputs:
       bump_type:
         description: 'Bump Type (minor or major)'
         required: true
         default: 'minor'
 jobs:
+  check-params:
+    name: Check status
+    if: github.ref == 'refs/heads/master' || github.event.inputs.bump_type == 'minor' || github.event.inputs.bump_type == 'major'
+    run: exit 1
   bump-version-ios:
     name: Bump version iOS
     runs-on: macos-latest
-    if: github.event.inputs.bump_type == 'minor' || github.event.inputs.bump_type == 'major'
     steps:
       - name: Checkout code
         uses: actions/checkout@master
@@ -29,7 +32,7 @@ jobs:
     name: Bump version Android
     needs: bump-version-ios
     runs-on: ubuntu-latest
-    if: github.event.inputs.bump_type == 'minor' || github.event.inputs.bump_type == 'major'
+    if: env.NEW_VERSION != null
     steps:
       - name: Checkout code
         uses: actions/checkout@master
