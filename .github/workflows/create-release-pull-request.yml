@@ -41,6 +41,7 @@ jobs:
         env:
           NEW_VERSION: ${{ steps.bump_version_ios.outputs.new_version }}
         run: |
+          echo $NEW_VERSION
           git log -n 2
           git branch release/$NEW_VERSION
           git push origin release/$NEW_VERSION
