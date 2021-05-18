@@ -8,12 +8,11 @@ on:
         default: 'minor'
 jobs:
   bump-version:
-    name: Bump version iOS
+    name: Bump version
     runs-on: [macos-latest, ubuntu-latest]
-    needs: checkout-release-branch
     if: github.event.inputs.bump_type == 'minor' || github.event.inputs.bump_type == 'major'
     outputs:
-      new-version: ${{ steps.bump_version.outputs.new_version }}
+      new-version: ${{ steps.bump_version_ios.outputs.new_version }}
     steps:
       - name: Checkout code
         uses: actions/checkout@master
