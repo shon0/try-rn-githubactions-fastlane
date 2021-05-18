@@ -7,7 +7,7 @@ platform :ios do
     )
 
     commit_version_bump(
-      message: "Bump bundle version to #{Actions.lane_context[SharedValues::VERSION_NUMBER]}",
+      message: "Bump bundle version to #{Actions.lane_context[SharedValues::VERSION_NUMBER]} on iOS",
       xcodeproj: "./ios/smaluna.xcodeproj",
       ignore: /smaluna-tvOSTests/,
     )
@@ -25,7 +25,7 @@ platform :android do
     )
 
     commit_android_version_bump(
-      message: "Bump bundle version to #{Actions.lane_context[SharedValues::VERSION_NAME]}",
+      message: "Bump bundle version to #{Actions.lane_context[SharedValues::VERSION_NAME]} on Android",
       gradle_file_folder: "android/app",
     )
 
