@@ -9,7 +9,7 @@ on:
 jobs:
   bump-version:
     name: Bump version
-    runs-on: [macos-latest, ubuntu-latest]
+    runs-on: macos-latest
     if: github.event.inputs.bump_type == 'minor' || github.event.inputs.bump_type == 'major'
     outputs:
       new-version: ${{ steps.bump_version_ios.outputs.new_version }}
