@@ -1,23 +1,23 @@
 platform :ios do
   desc "バージョンの更新"
   lane :bump_version do |options|
-    new_version = increment_version_number(
+    increment_version_number(
       bump_type: options[:bump_type],
       xcodeproj: "./ios/TryRNGithubactionsFastlane.xcodeproj"
     )
 
-    sh("echo IOS_NEW_VERSION=#{new_version} >> $GITHUB_ENV")
+    sh("echo IOS_NEW_VERSION=#{Actions.lane_context[SharedValues::VERSION_NUMBER]} >> $GITHUB_ENV")
   end
 end
 
 platform :android do
   desc "バージョンの更新"
   lane :bump_version do |options|
-    new_version = increment_version_name(
+    increment_version_name(
       bump_type: options[:bump_type],
       gradle_file_path: "./android/app/build.gradle",
     )
 
-    sh("echo ANDROID_NEW_VERSION=#{new_version} >> $GITHUB_ENV")
+    sh("echo ANDROID_NEW_VERSION=#{Actions.lane_context[SharedValues::VERSION_NAME]} >> $GITHUB_ENV")
   end
 end

@@ -43,10 +43,10 @@ jobs:
         run: |
           echo $NEW_VERSION
           git status
-          git branch release/$NEW_VERSION
+          git branch release/${{ env.IOS_NEW_VERSION }}
           git add .
-          git commit -m "Bump bundle version to $NEW_VERSION"
-          git push origin release/$NEW_VERSION
+          git commit -m "Bump bundle version to ${{ env.IOS_NEW_VERSION }}"
+          git push origin release/${{ env.IOS_NEW_VERSION }}
   create-release-pr:
     name: Create release pull request
     needs: bump-version
