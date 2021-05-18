@@ -42,7 +42,7 @@ jobs:
           git status
           git branch release/${{ env.IOS_NEW_VERSION }}
           git add .
-          git commit -m "Bump bundle version to ${{ env.IOS_NEW_VERSION }}"
+          git commit -m "Bump version to ${{ env.IOS_NEW_VERSION }}"
           git push origin release/${{ env.IOS_NEW_VERSION }}
   create-release-pr:
     name: Create release pull request
