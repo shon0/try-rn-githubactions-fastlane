@@ -18,6 +18,6 @@ platform :android do
       gradle_file_path: "./android/app/build.gradle",
     )
 
-    sh("echo ANDROID_NEW_VERSION=#{Actions.lane_context[SharedValues::ANDROID_VERSION_NAME]} >> $GITHUB_ENV")
+    sh("echo ANDROID_NEW_VERSION=#{Actions.lane_context["VERSION_NAME"]} >> $GITHUB_ENV")
   end
 end
