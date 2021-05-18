@@ -40,7 +40,7 @@ jobs:
         if: steps.bump_version_ios.outputs.new_version == steps.bump_version_android.outputs.new_version
         run: |
           git status
-          git branch release/${{ env.IOS_NEW_VERSION }}
+          git checkout -b release/${{ env.IOS_NEW_VERSION }}
           git add .
           git commit -m "Bump version to ${{ env.IOS_NEW_VERSION }}"
           git push origin release/${{ env.IOS_NEW_VERSION }}
