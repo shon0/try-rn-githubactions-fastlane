@@ -9,7 +9,7 @@ platform :ios do
     commit_version_bump(
       message: "Bump bundle version to #{Actions.lane_context[SharedValues::VERSION_NUMBER]} on iOS",
       xcodeproj: "./ios/TryRNGithubactionsFastlane.xcodeproj",
-      # ignore: /TryRNGithubactionsFastlane-tvOSTests/,
+      ignore: /TryRNGithubactionsFastlane-tvOSTests/,
     )
 
     sh("echo IOS_NEW_VERSION=#{new_version} >> $GITHUB_ENV")

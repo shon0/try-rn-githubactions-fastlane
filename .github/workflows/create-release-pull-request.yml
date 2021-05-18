@@ -24,16 +24,16 @@ jobs:
       - uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: '12.4'
+      - name: bundle install
+        run: bundle install
       - name: Bump version iOS
         id: bump_version_ios
         run: |
-          bundle install
           bundle exec fastlane ios bump_version bump_type:${{ github.event.inputs.bump_type }}
           echo ::set-output name=new_version::${{ env.IOS_NEW_VERSION }}
       - name: Bump version Android
         id: bump_version_android
         run: |
-          bundle install
           bundle exec fastlane android bump_version bump_type:${{ github.event.inputs.bump_type }}
           echo ::set-output name=new_version::${{ env.ANDROID_NEW_VERSION }}
       - name: commit & push
