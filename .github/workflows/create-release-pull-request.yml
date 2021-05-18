@@ -12,7 +12,7 @@ jobs:
     runs-on: macos-latest
     if: github.event.inputs.bump_type == 'minor' || github.event.inputs.bump_type == 'major'
     outputs:
-      new-version: ${{ steps.bump_version_ios.outputs.new_version }}
+      release_branch_name: ${{ steps.create_release_branch.outputs.branch }}
     steps:
       - name: Checkout code
         uses: actions/checkout@master
@@ -33,14 +33,16 @@ jobs:
         run: |
           bundle exec fastlane android bump_version bump_type:${{ github.event.inputs.bump_type }}
           echo ::set-output name=new_version::${{ env.ANDROID_NEW_VERSION }}
-      - name: commit & push
+      - name: Create release branch and commit, push
+        id: create_release_branch
         if: steps.bump_version_ios.outputs.new_version == steps.bump_version_android.outputs.new_version
         run: |
-          git status
-          git checkout -b release/${{ env.IOS_NEW_VERSION }}
+          VERSION=${{ env.IOS_NEW_VERSION }}
+          git checkout -b release/$VERSION
           git add .
-          git commit -m "Bump version to ${{ env.IOS_NEW_VERSION }}"
-          git push origin release/${{ env.IOS_NEW_VERSION }}
+          git commit -m "Bump version to $VERSION"
+          git push origin release/$VERSION
+          echo ::set-output name=branch::${{ release/$VERSION }}
   create-release-pr:
     name: Create release pull request
     needs: bump-version
@@ -48,3 +50,5 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@master
+        with:
+          ref: ${{needs.bump-version.outputs.release_branch_name}}
