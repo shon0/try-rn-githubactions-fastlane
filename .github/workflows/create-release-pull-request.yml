@@ -38,10 +38,10 @@ jobs:
         if: steps.bump_version_ios.outputs.new_version == steps.bump_version_android.outputs.new_version
         run: |
           VERSION=${{ env.IOS_NEW_VERSION }}
-          git checkout -b release/$VERSION
+          git checkout -b "release/$VERSION"
           git add .
           git commit -m "Bump version to $VERSION"
-          git push origin release/$VERSION
+          git push origin HEAD
           echo ::set-output name=branch::${{ release/$VERSION }}
   create-release-pr:
     name: Create release pull request
