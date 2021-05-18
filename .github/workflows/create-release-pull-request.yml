@@ -38,10 +38,7 @@ jobs:
           echo ::set-output name=new_version::${{ env.ANDROID_NEW_VERSION }}
       - name: commit & push
         if: steps.bump_version_ios.outputs.new_version == steps.bump_version_android.outputs.new_version
-        env:
-          NEW_VERSION: ${{ steps.bump_version_ios.outputs.new_version }}
         run: |
-          echo $NEW_VERSION
           git status
           git branch release/${{ env.IOS_NEW_VERSION }}
           git add .
