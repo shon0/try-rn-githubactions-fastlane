@@ -63,5 +63,4 @@ jobs:
           debug: true
           script: |
             const script = require(`${process.env.GITHUB_WORKSPACE}/.github/script/create_pull_request.js`)
-            const path = `${process.env.GITHUB_WORKSPACE}`
-            return await script({github, process.env.RELEASE_BRANCH})
+            # return await script({github, process.env.RELEASE_BRANCH})
