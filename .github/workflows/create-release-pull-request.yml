@@ -60,6 +60,7 @@ jobs:
           RELEASE_BRANCH: ${{needs.bump-version.outputs.release_branch_name}}
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
+          debug: true
           script: |
             const script = require(`${process.env.GITHUB_WORKSPACE}/.github/script/create_pull_request.js`)
             const path = `${process.env.GITHUB_WORKSPACE}`
