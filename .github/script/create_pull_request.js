@@ -1,6 +1,6 @@
 const simpleGit = require('simple-git');
 
-module.exports = async ({github}) => {
+module.exports = async ({github, headBranch}) => {
   //   const git = simpleGit(path);
   //   const logs = await git.tags({'--sort': '-v:refname'}).then(t => {
   //     const lastTag = t.all[(t, all.length)];
@@ -13,7 +13,7 @@ module.exports = async ({github}) => {
     owner: 'sumashin',
     repo: 'tsukuyomi',
     base: 'master',
-    head: process.env.HEAD_BRANCH,
+    head: headBranch,
     state: 'closed',
   });
 
