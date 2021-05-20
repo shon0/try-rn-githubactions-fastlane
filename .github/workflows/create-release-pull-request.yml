@@ -52,3 +52,15 @@ jobs:
         uses: actions/checkout@master
         with:
           ref: ${{needs.bump-version.outputs.release_branch_name}}
+      - name: Run npm install simple-git
+        run: npm install simple-git
+      - name: Create pull request
+        uses: actions/github-script@v4
+        env:
+          HEAD_BRANCH: ${GITHUB_REF#refs/heads/}
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const script = require(`${process.env.GITHUB_WORKSPACE}/.github/script/create_pull_request.js`)
+            const path = `${process.env.GITHUB_WORKSPACE}`
+            return await script({github})
