@@ -10,15 +10,15 @@ module.exports = async ({github, headBranch}) => {
 
   //   console.log(logs);
 
-  const {data} = await github.pulls.list({
-    owner: 'sumashin',
-    repo: 'tsukuyomi',
-    base: 'master',
-    head: headBranch,
-    state: 'closed',
-  });
+//   const {data} = await github.pulls.list({
+//     owner: 'sumashin',
+//     repo: 'tsukuyomi',
+//     base: 'master',
+//     head: headBranch,
+//     state: 'closed',
+//   });
 
-  console.log(data);
+//   console.log(data);
 
   //   const res = data.map(d => {
   //     return {
