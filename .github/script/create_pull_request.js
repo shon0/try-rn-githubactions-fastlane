@@ -17,6 +17,8 @@ module.exports = async ({github, headBranch}) => {
     state: 'closed',
   });
 
+  console.log(data);
+
   const res = data.map(d => {
     return {
       title: d.title,
