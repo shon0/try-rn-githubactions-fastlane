@@ -1,0 +1,21 @@
+name: Test
+on: push
+jobs:
+  test-script:
+    name: Script test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+        with:
+          fetch-depth: 0
+      - name: Run script
+        uses: actions/github-script@v4
+        env:
+          REPO: ${{ github.repository }}
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          debug: true
+          script: |
+            const script = require(`${process.env.GITHUB_WORKSPACE}/.github/script/sample.js`)
+            await script({github, repository: process.env.REPO, head: 'develop'})

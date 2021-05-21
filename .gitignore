@@ -61,3 +61,5 @@ buck-out/
 vendor
 .bundle
 fastlane/report.xml
+
+.env
