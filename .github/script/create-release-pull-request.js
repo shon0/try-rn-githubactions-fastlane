@@ -2,7 +2,7 @@ module.exports = async ({github, repository, head}) => {
   const [owner, repo] = repository.split('/');
   const [, version] = head.split('/');
   const commits = await getCommit(github, {owner, repo, head});
-  const pullList = await getPullList(github, {owner, repo, head});
+  const pullList = await getPullList(github, {owner, repo});
 
   const body = createPullRequestBody(pullList, commits);
 
@@ -32,14 +32,15 @@ const getCommit = async (github, {owner, repo, head}) => {
   return commits;
 };
 
-const getPullList = async (github, {owner, repo, head}) => {
+const getPullList = async (github, {owner, repo}) => {
   // headをベースに作成されたPR一覧を取得 (1ページあたりの結果（最大100）)
   const result = await github.pulls.list({
     owner,
     repo,
-    base: head,
+    base: 'develop',
     state: 'closed',
   });
+
   // 取得したPR一覧を必要な値のみの配列に変換
   const pullList = result.data.map(d => {
     return {
@@ -68,19 +69,6 @@ const createPullRequestBody = (pullsList, commits) => {
 
     return `- ${prHashNumber} ${title}`;
   };
-
-  console.log(
-    pullsList.filter(
-      pr => !ignoreBranches.some(branch => pr.head.ref.includes(branch)),
-    ),
-  );
-  console.log(
-    pullsList
-      .filter(
-        pr => !ignoreBranches.some(branch => pr.head.ref.includes(branch)),
-      )
-      .filter(pr => commits.some(commit => commit.sha === pr.merge_commit_sha)),
-  );
 
   const content = pullsList
     .filter(pr => !ignoreBranches.some(branch => pr.head.ref.includes(branch)))
