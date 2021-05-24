@@ -1,6 +1,6 @@
 module.exports = async ({github, repository, head}) => {
-  const [owner, repo] = repository.split('/', 1);
-  const [, version] = repo.split('/');
+  const [owner, repo] = repository.split('/');
+  const [, version] = head.split('/');
 
   // masterとheadの差分となるcommitを取得 (ページングしない場合はレスポンスは最大250件)
   const compareCommitsResult = await github.repos.compareCommits({
