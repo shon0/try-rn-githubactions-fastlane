@@ -57,10 +57,11 @@ jobs:
       - name: Create pull request
         uses: actions/github-script@v4
         env:
+          REPOSITORY: ${{ github.repository }}
           RELEASE_BRANCH: ${{needs.bump-version.outputs.release_branch_name}}
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           debug: true
           script: |
             const script = require(`${process.env.GITHUB_WORKSPACE}/.github/script/sample.js`)
-            await script({github, repository: process.env.REPO, head: process.env.RELEASE_BRANCH})
+            await script({github, repository: process.env.REPOSITORY, head: process.env.RELEASE_BRANCH})
