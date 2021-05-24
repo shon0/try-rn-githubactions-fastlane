@@ -45,9 +45,11 @@ module.exports = async ({github, repository, head}) => {
   content.unshift(`## Changes`);
   const body = content.join('\n');
 
+  console.log(body)
+
   // PRをmaster, developに出す
   // to master
-  const { number } = await github.pulls.create({
+  const resultPullsCreateToMaster = await github.pulls.create({
     owner,
     repo,
     head,
@@ -57,6 +59,8 @@ module.exports = async ({github, repository, head}) => {
     draft: true,
   });
 
+  console.log(resultPullsCreateToMaster)
+
   // to develop
   await github.pulls.create({
     owner,
@@ -64,7 +68,7 @@ module.exports = async ({github, repository, head}) => {
     head,
     base: 'develop',
     title: `Merge release branch ${version} to develop`,
-    body: `## Relation\n#${number}\n${body}`,
+    body: `## Relation\n#${resultPullsCreateToMaster.number}\n${body}`,
     draft: true,
   });
 };
