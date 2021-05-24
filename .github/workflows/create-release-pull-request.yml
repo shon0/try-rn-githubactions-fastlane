@@ -62,5 +62,5 @@ jobs:
           github-token: ${{secrets.GITHUB_TOKEN}}
           debug: true
           script: |
-            const script = require(`${process.env.GITHUB_WORKSPACE}/.github/script/create_pull_request.js`)
-            # return await script({github, process.env.RELEASE_BRANCH})
+            const script = require(`${process.env.GITHUB_WORKSPACE}/.github/script/sample.js`)
+            await script({github, repository: process.env.REPO, head: process.env.RELEASE_BRANCH})
