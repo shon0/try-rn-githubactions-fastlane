@@ -1,12 +1,12 @@
 module.exports = async ({github, repository, head}) => {
   const [owner, repo] = repository.split('/');
   const [, version] = head.split('/');
-  const commits = getCommit(github, {owner, repo, head});
-  const pullList = getPullList(github, {owner, repo, head});
+  const commits = await getCommit(github, {owner, repo, head});
+  const pullList = await getPullList(github, {owner, repo, head});
 
   const body = createPullRequestBody(pullList, commits);
 
-  createPullRequest(github, {
+  await createPullRequest(github, {
     owner,
     repo,
     head,
@@ -16,7 +16,7 @@ module.exports = async ({github, repository, head}) => {
 };
 
 // masterとheadの差分となるcommitを取得 (ページングしない場合はレスポンスは最大250件)
-const getCommit = (github, {owner, repo, head}) => {
+const getCommit = async (github, {owner, repo, head}) => {
   const result = await github.repos.compareCommits({
     owner,
     repo,
@@ -32,7 +32,7 @@ const getCommit = (github, {owner, repo, head}) => {
   return commits;
 };
 
-const getPullList = (github, {owner, repo, head}) => {
+const getPullList = async (github, {owner, repo, head}) => {
   // headをベースに作成されたPR一覧を取得 (1ページあたりの結果（最大100）)
   const result = await github.pulls.list({
     owner,
@@ -94,7 +94,7 @@ const createPullRequestBody = (pullsList, commits) => {
 };
 
 // PRをmaster, developに出す
-const createPullRequest = (github, {owner, repo, head, body, version}) => {
+const createPullRequest = async (github, {owner, repo, head, body, version}) => {
   // to master
   const resultPullsCreateToMaster = await github.pulls.create({
     owner,
