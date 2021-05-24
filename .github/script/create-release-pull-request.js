@@ -64,7 +64,7 @@ module.exports = async ({github, repository, head}) => {
     head,
     base: 'develop',
     title: `Merge release branch ${version} to develop`,
-    body: `##Relation\n#${number}\n${body}`,
+    body: `## Relation\n#${number}\n${body}`,
     draft: true,
   });
 };
